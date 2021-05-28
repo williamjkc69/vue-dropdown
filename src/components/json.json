@@ -1,0 +1,101 @@
+[
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "East South Central",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  },
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "West South Central",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  },
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "New England",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  },
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "South Atlantic",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  },
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "East North Central",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  },
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "Mid Atlantic",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  },
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "Alabama",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  },
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "Arizona",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  },
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "Arkansas",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  },
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "California",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  },
+  {
+    "id": "CO",
+    "value": "CO",
+    "name": "Colorado",
+    "checked": false,
+    "matches": true,
+    "selected": false,
+    "willLoop": false
+  }
+]
