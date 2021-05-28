@@ -3,6 +3,9 @@
     <img alt="Vue logo" src="./assets/logo.png" />
     <CustomDropdown
       :items="states"
+      item-class="foo"
+      btn-class="foo"
+      container-class="foo"
       placeholder="foobar"
       multiSelect
       searchable
@@ -27,41 +30,41 @@ export default {
   data() {
     return {
       states: [
-        {
-          id: "CO",
-          value: "CO1",
-          name: "East South Central"
-        },
-        {
-          id: "CO",
-          value: "CO2",
-          name: "West South Central"
-        },
-        {
-          id: "CO",
-          value: "CO3",
-          name: "New England"
-        },
-        {
-          id: "CO",
-          value: "CO4",
-          name: "South Atlantic"
-        },
-        {
-          id: "CO",
-          value: "CO5",
-          name: "East North Central"
-        },
-        {
-          id: "CO",
-          value: "CO6",
-          name: "Mid Atlantic"
-        },
-        {
-          id: "CO",
-          value: "CO7",
-          name: "Alabama"
-        },
+        // {
+        //   id: "CO",
+        //   value: "CO1",
+        //   name: "East South Central"
+        // },
+        // {
+        //   id: "CO",
+        //   value: "CO2",
+        //   name: "West South Central"
+        // },
+        // {
+        //   id: "CO",
+        //   value: "CO3",
+        //   name: "New England"
+        // },
+        // {
+        //   id: "CO",
+        //   value: "CO4",
+        //   name: "South Atlantic"
+        // },
+        // {
+        //   id: "CO",
+        //   value: "CO5",
+        //   name: "East North Central"
+        // },
+        // {
+        //   id: "CO",
+        //   value: "CO6",
+        //   name: "Mid Atlantic"
+        // },
+        // {
+        //   id: "CO",
+        //   value: "CO7",
+        //   name: "Alabama"
+        // },
         {
           id: "CO",
           value: "CO8",
@@ -103,6 +106,9 @@ export default {
 </script>
 
 <style>
+.foo{
+  background: chocolate;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -27,13 +27,10 @@
           :class="{ hide: !item.matches }"
         >
           <p
-            class="flex"
             v-if="isChecked"
-            :class="{
-              selected: item.checked && !item.disabled,
-              disabled: item.disabled
-            }"
-            @click="handleSelection(item)"
+            :class="
+              `flex pointer ${item.checked ? itemClass : ''} ${item.disabled ? 'disabled' : ''}`
+            "
           >
             <input
               class="pointer"
@@ -43,20 +40,17 @@
               :value="item.name"
               :checked="item.checked && !item.disabled"
               :disabled="item.disabled"
-            />
-            <label
               @click="handleSelection(item)"
-              :for="item.name"
-              class="pointer"
-              >{{ item.name }}</label
-            >
+            />
+            <label :for="item.name" class="pointer">{{ item.name }}</label>
           </p>
           <div v-else>
             <p
               @click="handleSelection(item)"
               :for="item.name"
-              class="pointer"
-              :class="{ selected: item.checked }"
+              :class="
+              `flex pointer ${item.checked ? itemClass : ''} ${item.disabled ? 'disabled' : ''}`
+            "
             >
               {{ item.name }}
             </p>
@@ -91,6 +85,10 @@ export default {
       type: String,
       default: "Select an Option"
     },
+    itemClass: {
+      type: String,
+      default: ""
+    },
     searchPlaceholder: {
       type: String,
       default: ""
@@ -107,6 +105,12 @@ export default {
   computed: {
     hasBtnText() {
       return !!this.$slots.btnText;
+    },
+    itemClassName() {
+      if (this.itemClass) {
+        return this.itemClass;
+      }
+      return "selected";
     }
   },
   created() {
@@ -150,32 +154,21 @@ export default {
     },
     handleSelection(item) {
       if (item.checked) {
-        if (!item.disabled) {
-          console.log("checked");
-          console.log(this.selectedToExport);
-
-          item.checked = false;
-          if (Array.isArray(this.selectedToExport)) {
-            this.selectedToExport = this.selectedToExport.filter(
-              (e) => e != item.value
-            );
-          }
+        item.checked = false;
+        if (Array.isArray(this.selectedToExport)) {
+          this.selectedToExport = this.selectedToExport.filter(
+            (e) => e != item.value
+          );
         }
       } else {
-        console.log("not checked");
-        if (this.multiSelect) {
-          console.log("multi");
-          if (!item.disabled) {
+        if (!item.disabled) {
+          if (this.multiSelect) {
             this.selectedToExport.push(item.value);
-          }
-        } else {
-          console.log("not multi");
-          if (!item.disabled) {
+          } else {
             this.selectedToExport = item.value;
             this.elements.map((i) => {
               i.checked = false;
             });
-            // item.checked = false;
           }
           item.checked = true;
         }
@@ -243,6 +236,7 @@ export default {
   background: #41b883;
 }
 .disabled {
+  /* color: red; */
   color: #ccc;
 }
 p {
