@@ -1,19 +1,19 @@
 <template>
-  <div class="" v-clickoutside="onClose">
+  <div class="vue-dropdown" v-clickoutside="onClose">
     <!-- button -->
-    <button class="btn-main-class" @click="saveLocations">
+    <button :class="btnClassName" @click="saveLocations">
       <slot v-if="hasBtnText" name="btnText"></slot>
-      <template v-else>{{ placeholder }}</template>
+      <template v-else>{{ placeholderBtnText }}</template>
     </button>
 
     <!-- select body -->
-    <div v-if="popupLocationFilter" class="bg">
+    <div v-if="popupLocationFilter" :class="`bg ${containerClassName}`">
       <!-- search input -->
-      <div class="w-full" v-if="searchable">
+      <div class="search-container" v-if="searchable">
         <input
           v-model="stateToSearch"
-          class=""
-          :placeholder="searchPlaceholder"
+          :class="`vue-search ${searchClass}`"
+          :placeholder="searchPlaceholderText"
           @input="handleTyping()"
         />
       </div>
@@ -29,7 +29,9 @@
           <p
             v-if="isChecked"
             :class="
-              `flex pointer ${item.checked ? itemClass : ''} ${item.disabled ? 'disabled' : ''}`
+              `item-flex pointer ${item.checked ? itemClassName : ''} ${
+                item.disabled ? 'disabled' : ''
+              }`
             "
           >
             <input
@@ -49,12 +51,15 @@
               @click="handleSelection(item)"
               :for="item.name"
               :class="
-              `flex pointer ${item.checked ? itemClass : ''} ${item.disabled ? 'disabled' : ''}`
-            "
+                `item-flex pointer ${item.checked ? itemClassName : ''} ${
+                  item.disabled ? 'disabled' : ''
+                }`
+              "
             >
               {{ item.name }}
             </p>
           </div>
+          <div class=""></div>
         </div>
       </div>
     </div>
@@ -81,15 +86,27 @@ export default {
       type: Boolean,
       default: false
     },
-    placeholder: {
+    placeholderBtn: {
       type: String,
       default: "Select an Option"
     },
     itemClass: {
       type: String,
-      default: ""
+      default: null
     },
     searchPlaceholder: {
+      type: String,
+      default: "Search"
+    },
+    btnClass: {
+      type: String,
+      default: ""
+    },
+    containerClass: {
+      type: String,
+      default: ""
+    },
+    searchClass: {
       type: String,
       default: ""
     }
@@ -103,6 +120,18 @@ export default {
     };
   },
   computed: {
+    placeholderBtnText() {
+      if (this.placeholderBtn) {
+        return this.placeholderBtn;
+      }
+      return "Select an Option";
+    },
+    searchPlaceholderText() {
+      if (this.searchPlaceholder) {
+        return this.searchPlaceholder;
+      }
+      return "Search";
+    },
     hasBtnText() {
       return !!this.$slots.btnText;
     },
@@ -111,6 +140,18 @@ export default {
         return this.itemClass;
       }
       return "selected";
+    },
+    btnClassName() {
+      if (this.btnClass) {
+        return this.btnClass;
+      }
+      return "vue-main-btn";
+    },
+    containerClassName() {
+      if (this.containerClass) {
+        return this.containerClass;
+      }
+      return "vue-main-container";
     }
   },
   created() {
@@ -151,6 +192,7 @@ export default {
           item.disabled = false;
         }
       });
+      this.$emit("input", this.selectedToExport);
     },
     handleSelection(item) {
       if (item.checked) {
@@ -165,7 +207,8 @@ export default {
           if (this.multiSelect) {
             this.selectedToExport.push(item.value);
           } else {
-            this.selectedToExport = item.value;
+            this.selectedToExport = [];
+            this.selectedToExport.push(item.value);
             this.elements.map((i) => {
               i.checked = false;
             });
@@ -173,11 +216,11 @@ export default {
           item.checked = true;
         }
       }
+      this.$emit("input", this.selectedToExport);
       this.$forceUpdate();
     },
     saveLocations() {
       this.popupLocationFilter = !this.popupLocationFilter;
-      this.$emit("elementsSelected", this.selectedToExport);
       if (!this.popupLocationFilter) {
         this.$emit("hidden");
       }
@@ -209,41 +252,80 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.btn-main-class {
+.vue-dropdown {
   position: relative;
+  width: fit-content;
 }
-.bg {
-  position: absolute;
-  border: 1px solid #ccc;
-  min-width: 25%;
-  z-index: 1000;
+.vue-dropdown .bg {
+  box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
   background-color: #fff;
   border: 1px solid #ccc;
+  position: absolute;
   border-radius: 4px;
-  box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
-  background-clip: padding-box;
+  max-height: 400px;
+  min-width: 300px;
+  z-index: 1000;
+  overflow: auto;
+  width: 100%;
 }
-.flex {
+.vue-dropdown .vue-main-btn:hover {
+  background: #e1e1e1;
+}
+.vue-dropdown .vue-main-btn {
+  border: 0.5px solid #ccc;
+  background: white;
+  width: 100%;
+  min-height: 40px;
+  text-align: center;
+  color: #35495e;
+  min-width: 300px;
+  font-size: 17px;
+  cursor: pointer;
+  height: 2.5rem;
+}
+.vue-dropdown .search-container {
+  margin: 5px 0;
+}
+
+.vue-dropdown .item-flex {
   display: flex;
 }
-.hide {
-  display: none !important;
+.vue-dropdown .hide {
+  display: none;
 }
-.pointer {
+.vue-dropdown .pointer {
   cursor: pointer;
 }
-.selected {
+.vue-dropdown .pointer:hover {
+  color: white;
   background: #41b883;
 }
-.disabled {
-  /* color: red; */
+.vue-dropdown .selected {
+  background: #e1e1e1;
+}
+.vue-dropdown .disabled {
   color: #ccc;
 }
-p {
-  margin: 0;
+.vue-dropdown p {
+  text-align: left;
   padding: 0.5em;
+  margin: 0;
 }
-label {
-  margin-left: 0.75em;
+.vue-dropdown label {
+  text-align: left;
+  margin-left: 5px;
+  width: 100%;
+}
+.vue-dropdown .vue-search {
+  border-width: 0 0 2px;
+  border-color: #ccc;
+  font-style: italic;
+  margin: 5px 10px;
+  height: 1.75em;
+  width: 90%;
+  outline: 0;
+}
+.vue-dropdown .vue-search::placeholder {
+  text-align: center;
 }
 </style>

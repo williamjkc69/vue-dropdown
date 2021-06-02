@@ -1,70 +1,73 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
-    <CustomDropdown
-      :items="states"
-      item-class="foo"
-      btn-class="foo"
-      container-class="foo"
-      placeholder="foobar"
-      multiSelect
-      searchable
-      isChecked
-      @elementsSelected="selectedFilters($event)"
-      @hidden="close"
-    >
-      <template #btnText>
-        show options &#9729;
-      </template>
-    </CustomDropdown>
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <p>value: {{ value }}</p>
+    <div class="flex">
+      <CustomDropdown
+        v-model="value"
+        :items="states"
+        item-class=""
+        btn-class=""
+        container-class=""
+        placeholderBtn=""
+        searchPlaceholder=""
+        multiSelect
+        searchable
+        isChecked
+        @hidden="close"
+      >
+        <!-- <template #btnText>
+          foobar
+        </template> -->
+      </CustomDropdown>
+    </div>
   </div>
 </template>
 
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
 import CustomDropdown from "./components/CustomDropdown.vue";
 
 export default {
   name: "App",
   data() {
     return {
+      value: null,
       states: [
-        // {
-        //   id: "CO",
-        //   value: "CO1",
-        //   name: "East South Central"
-        // },
-        // {
-        //   id: "CO",
-        //   value: "CO2",
-        //   name: "West South Central"
-        // },
-        // {
-        //   id: "CO",
-        //   value: "CO3",
-        //   name: "New England"
-        // },
-        // {
-        //   id: "CO",
-        //   value: "CO4",
-        //   name: "South Atlantic"
-        // },
-        // {
-        //   id: "CO",
-        //   value: "CO5",
-        //   name: "East North Central"
-        // },
-        // {
-        //   id: "CO",
-        //   value: "CO6",
-        //   name: "Mid Atlantic"
-        // },
-        // {
-        //   id: "CO",
-        //   value: "CO7",
-        //   name: "Alabama"
-        // },
+        {
+          id: "CO",
+          value: "CO1",
+          name: "East South Central"
+        },
+        {
+          id: "CO",
+          value: "CO2",
+          name: "West South Central"
+        },
+        {
+          id: "CO",
+          value: "CO3",
+          name: "New England"
+        },
+        {
+          id: "CO",
+          value: "CO4",
+          name: "South Atlantic"
+        },
+        {
+          id: "CO",
+          value: "CO5",
+          name: "East North Central"
+        },
+        {
+          id: "CO",
+          value: "CO6",
+          name: "Mid Atlantic"
+        },
+        {
+          id: "CO",
+          value: "CO7",
+          name: "Alabama"
+        },
         {
           id: "CO",
           value: "CO8",
@@ -92,7 +95,6 @@ export default {
   },
   components: {
     CustomDropdown
-    // HelloWorld
   },
   methods: {
     selectedFilters(e) {
@@ -106,7 +108,7 @@ export default {
 </script>
 
 <style>
-.foo{
+.foo {
   background: chocolate;
 }
 #app {
@@ -116,5 +118,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.flex {
+  display: flex;
+  justify-content: center;
 }
 </style>
